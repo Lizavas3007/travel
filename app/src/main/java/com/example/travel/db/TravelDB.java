@@ -41,11 +41,11 @@ public class TravelDB {
         db.execSQL(query);
     }
 
-    public void createUser(String username, int age, String path) {
+    public void createUser(User user) {
         String query = "INSERT INTO users (name, age, photopath) VALUES (";
-        query += "'" + username + "', ";
-        query += Integer.toString(age) + ", ";
-        query += path + ");";
+        query += "'" + user.name + "', ";
+        query += Integer.toString(user.age) + ", ";
+        query += user.photoPath + ");";
         db.execSQL(query);
     }
 
@@ -92,6 +92,20 @@ public class TravelDB {
             notes.add(new Note(id, name));
         }
         return notes;
+    }
+
+    public ArrayList<User> getUsers() {
+        ArrayList<User> users = new ArrayList<User>();
+        String query = "SELECT * FROM users ORDER BY name ASC;";
+        Cursor cursor = db.rawQuery(query, null);
+        while(cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            String name = cursor.getString(1);
+            int age = cursor.getInt(2);
+            String photoPath = cursor.getString(3);
+            users.add(new User(id, name, age, photoPath));
+        }
+        return users;
     }
 
     public User getUserById(int id) {

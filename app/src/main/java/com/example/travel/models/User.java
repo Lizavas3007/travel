@@ -7,4 +7,10 @@ public class User {
     public String photoPath;
 
     public User(){}
+    public User(int id, String name, int age, String photoPath) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.photoPath = photoPath;
+    }
 }
